@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="admin" id="2">
+
+        <createTable tableName="Applications">
+            <column name="application_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="e_mail" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="github_user" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="projects" type="BIGINT">
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint  baseColumnNames="projects"
+                                  baseTableName="applications"
+                                  constraintName="fk_application_project"
+                                  onDelete="CASCADE"
+                                  onUpdate="CASCADE"
+                                  referencedColumnNames="project_id"
+                                  referencedTableName="Projects"
+        />
+    </changeSet>
+</databaseChangeLog>

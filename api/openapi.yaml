@@ -1,0 +1,145 @@
+openapi: 3.0.1
+info:
+  title: coding challenge
+  description: Application service as coding challenge
+  termsOfService: http://localhost:8080/tos
+  contact:
+    email: eric.phlippen@binaris-bibliothek.de
+  version: 0.0.1
+servers:
+- url: http://localhost:8080/
+paths:
+  /Applications:
+    get:
+      tags:
+        - Applications
+      summary: Show all applications
+      description: Show all applications
+      operationId: getAllApplications
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Applications' 
+  /Applications/{id}:
+    get:
+      tags:
+      - Applications
+      summary: Get a Application by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID that needs to be fetched.
+        required: true
+        schema:
+          type: string
+      operationId: getApplicationByID
+      responses:
+        200:
+          description: Showing requested Application
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Applications'
+                  
+  /createApplication:
+    post:
+      tags:
+        - Applications
+      summary: Create a new application
+      description: Create a new application
+      operationId: createApplication
+      requestBody:
+        description: Create a new application
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Applications'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Applications'        
+          
+components:
+  schemas:
+    Applications:
+      required:
+        - e-mail
+        - name
+        - githubUser
+        - projects
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        e-mail:
+          type: string
+          example: eric.phlippen@binaris-informatik.de
+        name:
+          type: string
+          example: Eric Phlippen
+        githubUser:
+          type: string
+          example: fullsup1
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Projects'
+    Projects:
+      required:
+        - name
+        - employmentMode
+        - capacity
+        - duration
+        - startingYear
+        - role
+        - teamSize
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        applicationId:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Inventory management
+        employmentMode:
+          type: string
+          example: Freelance
+        capacity:
+          type: string
+          example: full-time
+        duration:
+         type: string
+         example: 3 Weeks
+        startingYear:
+          type: integer
+          format: int64
+          example: 2019
+        role:
+          type: string
+          example: junior
+        teamSize:
+          type: integer
+          format: int64
+          example: 5
+        repo:
+          type: string
+          example: https://github.com/fullsup1/coding-challenge-backend/tree/java
+        liveUrl:
+          type: string
+          example: https://www.google.com/
